@@ -6,6 +6,8 @@ import './index.scss'
 
 import '@/common/scss/common.scss'
 
+import 'console-polyfill'
+
 console.info('hello world')
 
 util()

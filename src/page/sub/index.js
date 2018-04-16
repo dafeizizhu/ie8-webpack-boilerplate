@@ -6,4 +6,6 @@ import './index.css'
 
 import '@/common/scss/common.scss'
 
+import 'console-polyfill'
+
 console.info('sub')

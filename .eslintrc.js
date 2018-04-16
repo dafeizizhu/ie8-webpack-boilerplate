@@ -9,11 +9,6 @@ module.exports = {
     node: true,
     es6: true
   },
-  settings: {
-    react: {
-      'pragma': 'Nerv'
-    }
-  },
   parser: 'babel-eslint',
   rules: {
     'no-console': 'error',

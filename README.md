@@ -24,3 +24,7 @@ A simple Webpack boilerplate for IE8
 
 * Build:
     `npm run build`
+
+## Reference
+
+[NervJS/nerv-webpack-boilerplate: A webpack boilerplate with Nervjs](https://github.com/NervJS/nerv-webpack-boilerplate)

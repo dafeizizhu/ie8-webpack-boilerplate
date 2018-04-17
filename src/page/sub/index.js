@@ -1,9 +1,9 @@
-import moment from 'moment'
-
-import '@/common/js/util'
-
+import '@/common/scss/common.scss'
 import './index.css'
 
-import '@/common/scss/common.scss'
+import moment from 'moment'
+import util from '@/common/js/util'
 
 console.info('sub')
+console.info(moment())
+console.info(util())

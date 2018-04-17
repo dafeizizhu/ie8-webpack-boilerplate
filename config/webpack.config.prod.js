@@ -51,7 +51,11 @@ webpackConfig.module.rules = [...webpackConfig.module.rules,
   },
   {
     test: /\.(jpg|png|gif)$/,
-    loader: 'file-loader?name=assets/img/[name].[ext]'
+    loader: 'url-loader',
+    options: {
+      limit: 10000,
+      name: 'img/[name].[hash:7].[ext]'
+    }
   },
   {
     test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -59,48 +63,32 @@ webpackConfig.module.rules = [...webpackConfig.module.rules,
   }
 ]
 
-webpackConfig.plugins = [...webpackConfig.plugins,
+let pages = ['index', 'sub']
+
+const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
+  inject: false,
+  filename: page + '.html',
+  template: helpers.root('./src/page/' + page + '/index.html'),
+  minify: {
+    removeComments: true,
+    collapseWhitespace: false,
+    removeRedundantAttributes: true,
+    useShortDoctype: true,
+    removeEmptyAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    keepClosingSlash: true,
+    minifyJS: true,
+    minifyCSS: true,
+    minifyURLs: true
+  },
+  chunksSortMode: 'dependency',
+  chunks: ['ie8-polyfill', 'manifest', 'vendor', 'common', page]
+}))
+
+webpackConfig.plugins = [
+  ...webpackConfig.plugins,
   extractStyle,
-  new HtmlWebpackPlugin({
-    inject: false,
-    filename: 'index.html',
-    template: helpers.root('/src/page/index/index.html'),
-    favicon: helpers.root('/src/assets/favicon.png'),
-    minify: {
-      removeComments: true,
-      collapseWhitespace: false,
-      removeRedundantAttributes: true,
-      useShortDoctype: true,
-      removeEmptyAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      keepClosingSlash: true,
-      minifyJS: true,
-      minifyCSS: true,
-      minifyURLs: true
-    },
-    chunksSortMode: 'dependency',
-    chunks: ['es5-polyfill', 'manifest', 'vendor', 'common', 'index']
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    filename: 'sub.html',
-    template: helpers.root('/src/page/sub/index.html'),
-    favicon: helpers.root('/src/assets/favicon.png'),
-    minify: {
-      removeComments: true,
-      collapseWhitespace: false,
-      removeRedundantAttributes: true,
-      useShortDoctype: true,
-      removeEmptyAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      keepClosingSlash: true,
-      minifyJS: true,
-      minifyCSS: true,
-      minifyURLs: true
-    },
-    chunksSortMode: 'dependency',
-    chunks: ['es5-polyfill', 'manifest', 'vendor', 'common', 'sub']
-  }),
+  ...htmlWebpackPlugins,
   new webpack.optimize.UglifyJsPlugin({
     beautify: false,
     mangle: {
@@ -136,7 +124,6 @@ webpackConfig.plugins = [...webpackConfig.plugins,
       return (
         module.resource &&
         /\.js$/.test(module.resource) &&
-        module.resource.indexOf('es5-polyfill') < 0 &&
         module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
       )
     }

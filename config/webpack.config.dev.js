@@ -20,27 +20,22 @@ webpackConfig.module.rules = [
   }
 ]
 
+let pages = ['index', 'sub']
+
+const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
+  inject: false,
+  filename: page + '.html',
+  template: helpers.root('./src/page/' + page + '/index.html'),
+  chunkSortMode: 'dependency',
+  chunks: ['ie8-polyfill', page]
+}))
+
 webpackConfig.plugins = [
   ...webpackConfig.plugins,
   new DefinePlugin({
     'process.env': env
   }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    filename: 'index.html',
-    template: helpers.root('./src/page/index/index.html'),
-    favicon: helpers.root('./src/assets/favicon.png'),
-    chunksSortMode: 'dependency',
-    chunks: ['es5-polyfill', 'index']
-  }),
-  new HtmlWebpackPlugin({
-    inject: false,
-    filename: 'sub.html',
-    template: helpers.root('./src/page/sub/index.html'),
-    favicon: helpers.root('./src/assets/favicon.png'),
-    chunksSortMode: 'dependency',
-    chunks: ['es5-polyfill', 'sub']
-  })
+  ...htmlWebpackPlugins
 ]
 
 webpackConfig.devServer = {

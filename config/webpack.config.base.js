@@ -4,9 +4,9 @@ const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin')
 
 const config = {
   entry: {
+    'ie8-polyfill': helpers.root('./src/common/js/ie8-polyfill.js'),
     'index': helpers.root('./src/page/index/index.js'),
-    'sub': helpers.root('./src/page/sub/index.js'),
-    'es5-polyfill': 'es5-polyfill'
+    'sub': helpers.root('./src/page/sub/index.js')
   },
   output: {
     path: helpers.root('/dist'),

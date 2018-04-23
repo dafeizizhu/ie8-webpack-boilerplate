@@ -1,17 +1,25 @@
-/* global $ */
+/* global $, alert */
 
-let showToastTimer
+let showToastTimer;
 
 const showToast = (message, cb) => {
-  clearTimeout(showToastTimer)
-  $('#toast').text(message).show()
+  if (typeof $ === 'undefined') return alert(message);
+
+  clearTimeout(showToastTimer);
+  let $toast = $('#toast');
+
+  if ($toast.length <= 0) {
+    $toast = $('<div id="toast" class="toast"></div>');
+    $('body').append($toast);
+  }
+
+  $toast.text(message).show();
   showToastTimer = setTimeout(() => {
-    $('#toast').hide()
+    $toast.hide();
+    if (typeof cb === 'function') cb();
+  }, 2000);
+};
 
-    if (typeof cb === 'function') cb()
-  }, 2000)
-}
-
-export {
+export default {
   showToast
-}
+};

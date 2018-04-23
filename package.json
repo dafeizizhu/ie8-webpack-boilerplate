@@ -1,6 +1,6 @@
 {
   "name": "ie8-webpack-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production npm run clean && webpack --config config/webpack.config.prod.js",

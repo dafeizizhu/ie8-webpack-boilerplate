@@ -1,13 +1,16 @@
+/* stylelint-disable at-rule-no-unknown */
+
 // mixins
+
 %clearfix {
   *zoom: 1;
   &::before,
-  &::after{
-    content: "";
+  &::after {
+    content: '';
     display: table;
     line-height: 0;
   }
-  &::after{
+  &::after {
     clear: both;
   }
 }
@@ -32,5 +35,5 @@
   color: #fff;
   border-radius: 10px;
   background-color: #000;
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
 }

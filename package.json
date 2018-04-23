@@ -1,8 +1,12 @@
 {
   "name": "ie8-webpack-boilerplate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Webpack boilerplate for IE8",
-  "keywords": ["webpack", "ie8", "boilerplate"],
+  "keywords": [
+    "webpack",
+    "ie8",
+    "boilerplate"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/dafeizizhu/ie8-webpack-boilerplate"

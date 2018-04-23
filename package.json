@@ -1,6 +1,12 @@
 {
   "name": "ie8-webpack-boilerplate",
   "version": "0.0.2",
+  "description": "Webpack boilerplate for IE8",
+  "keywords": ["webpack", "ie8", "boilerplate"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dafeizizhu/ie8-webpack-boilerplate"
+  },
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production npm run clean && webpack --config config/webpack.config.prod.js",

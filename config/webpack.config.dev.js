@@ -1,6 +1,8 @@
+const path = require('path')
 const helpers = require('./helpers')
 const webpackConfig = require('./webpack.config.base')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
 const env = require('../environment/dev.env')
 
@@ -35,7 +37,13 @@ webpackConfig.plugins = [
   new DefinePlugin({
     'process.env': env
   }),
-  ...htmlWebpackPlugins
+  ...htmlWebpackPlugins,
+  // copy custom static assets
+  new CopyWebpackPlugin([{
+    from: path.resolve(__dirname, '../static'),
+    to: webpackConfig.output.path,
+    ignore: ['.*']
+  }])
 ]
 
 webpackConfig.devServer = {

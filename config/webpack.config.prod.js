@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const webpackConfig = require('./webpack.config.base')
 const helpers = require('./helpers')
@@ -9,7 +10,7 @@ const DefinePlugin = require('webpack/lib/DefinePlugin')
 const env = require('../environment/prod.env')
 
 const extractStyle = new ExtractTextPlugin({
-  filename: 'css/[name]_[chunkhash:8].css',
+  filename: 'css/[name]_[contenthash:8].css',
   allChunks: true,
   disable: process.env.NODE_ENV === 'development'
 })
@@ -133,7 +134,13 @@ webpackConfig.plugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'manifest',
     minChunks: Infinity
-  })
+  }),
+  // copy custom static assets
+  new CopyWebpackPlugin([{
+    from: path.resolve(__dirname, '../static'),
+    to: webpackConfig.output.path,
+    ignore: ['.*']
+  }])
 ]
 
 module.exports = webpackConfig

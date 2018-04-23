@@ -1,3 +1,36 @@
-body {
-  background: red;
+// mixins
+%clearfix {
+  *zoom: 1;
+  &::before,
+  &::after{
+    content: "";
+    display: table;
+    line-height: 0;
+  }
+  &::after{
+    clear: both;
+  }
+}
+
+.clearfix {
+  @extend %clearfix;
+}
+
+// components
+
+.toast {
+  display: none;
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  margin-left: -160px;
+  width: 320px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 10px;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, .6);
 }

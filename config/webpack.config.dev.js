@@ -29,7 +29,8 @@ const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
   filename: page + '.html',
   template: helpers.root('./src/page/' + page + '/index.html'),
   chunkSortMode: 'dependency',
-  chunks: ['ie8-polyfill', page]
+  chunks: ['ie8-polyfill', page],
+  env
 }))
 
 webpackConfig.plugins = [

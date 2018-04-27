@@ -83,7 +83,8 @@ const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
     minifyURLs: true
   },
   chunksSortMode: 'dependency',
-  chunks: ['ie8-polyfill', 'manifest', 'vendor', 'common', page]
+  chunks: ['ie8-polyfill', 'manifest', 'vendor', 'common', page],
+  env
 }))
 
 webpackConfig.plugins = [

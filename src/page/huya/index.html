@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head lang="zh-Hans-CN">
+    <meta charset="utf8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="//hd.huya.com/ysl2016/main_7e74ecc.css"/>
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet"><% } %>
+    <script>
+      // html的head头部需要
+      window.performanceInfo = {};
+      window.performanceInfo._hmt = [];
+      window.performanceInfo.whiteScreenTime = +new Date();
+      window.performanceInfo.firstScreenTime = 0;
+      window.performanceInfo.pageview = '{identifier}';  // 整个线上的唯一名称
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Huya Web Template</h1>
+    </div>
+    <script src="//a.msstatic.com/huya/common/jquery-1.12.4.min.js"></script>
+    <script src="//a.msstatic.com/huya/common/header_lg.js"></script>
+    <script src="//a.msstatic.com/huya/common/footer.js"></script>
+    <% if (htmlWebpackPlugin.files.chunks['manifest']) { %><script type='text/javascript' src="<%= htmlWebpackPlugin.files.chunks['manifest'].entry %>"></script><% } %>
+    <!--[if IE 8]>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks['ie8-polyfill'].entry %>"></script>
+    <![endif]-->
+    <% for (var chunkName in htmlWebpackPlugin.files.chunks) { %><% if (chunkName === 'ie8-polyfill') continue; %><% if (chunkName === 'manifest') continue; %>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks[chunkName].entry %>"></script><% } %>
+  </body>
+</html>

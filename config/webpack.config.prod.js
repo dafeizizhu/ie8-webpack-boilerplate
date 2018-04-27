@@ -64,7 +64,7 @@ webpackConfig.module.rules = [...webpackConfig.module.rules,
   }
 ]
 
-let pages = ['index', 'sub']
+let pages = ['index', 'huya']
 
 const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
   inject: false,

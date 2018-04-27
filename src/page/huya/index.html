@@ -29,5 +29,8 @@
     <![endif]-->
     <% for (var chunkName in htmlWebpackPlugin.files.chunks) { %><% if (chunkName === 'ie8-polyfill') continue; %><% if (chunkName === 'manifest') continue; %>
     <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks[chunkName].entry %>"></script><% } %>
+    <% if (htmlWebpackPlugin.options.env.ENV === '"production"') { %>
+    <script type='text/javascript' src='//a.msstatic.com/huya/hd/cdn_libs/performance_report-min.js'></script>
+    <% } %>
   </body>
 </html>

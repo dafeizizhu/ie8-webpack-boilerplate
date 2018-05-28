@@ -8,4 +8,9 @@ function root (args) {
   return path.join.apply(path, [ROOT].concat(args))
 }
 
+function pages () {
+  return ['index', 'huya']
+}
+
 exports.root = root
+exports.pages = pages

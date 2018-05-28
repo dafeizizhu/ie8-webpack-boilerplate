@@ -22,7 +22,7 @@ webpackConfig.module.rules = [
   }
 ]
 
-let pages = ['index', 'huya']
+let pages = helpers.pages()
 
 const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
   inject: false,

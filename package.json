@@ -13,7 +13,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "cross-env NODE_ENV=production npm run clean && webpack --config config/webpack.config.prod.js",
+    "test": "cross-env NODE_ENV=production npm run clean && webpack --config config/webpack.config.test.js",
+    "pub": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js",
     "clean": "rimraf dist",
     "precommit": "lint-staged"
   },

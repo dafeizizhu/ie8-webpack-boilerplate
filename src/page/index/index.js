@@ -6,4 +6,4 @@ import util from '@/common/js/util'
 
 console.info('index')
 console.info(moment())
-util()
+console.info(util)

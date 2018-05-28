@@ -1,14 +1,14 @@
 /* eslint no-console: "off" */
 
-import '@/common/scss/common.scss';
-import './index.scss';
+import '@/common/scss/common.scss'
+import './index.scss'
 
-import moment from 'moment';
-import util from '@/common/js/util';
+import moment from 'moment'
+import util from '@/common/js/util'
 
-console.info('index');
-console.info(moment());
-util();
+console.info('index')
+console.info(moment())
+console.info(util)
 
 // first screen
-window.performanceInfo.firstScreenTime = +new Date();
+window.performanceInfo.firstScreenTime = +new Date()

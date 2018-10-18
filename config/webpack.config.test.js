@@ -93,7 +93,7 @@ webpackConfig.optimization = {
   splitChunks: {
     cacheGroups: {
       common: {
-        chunks: 'initial',
+        chunks: 'all',
         name: 'common',
         minChunks: pages.length,
         maxInitialRequests: 5,
@@ -101,7 +101,7 @@ webpackConfig.optimization = {
       },
       vendor: { // 将第三方模块提取出来
         test: /node_modules/,
-        chunks: 'initial',
+        chunks: 'all',
         name: 'vendor',
         priority: 10, // 优先
         enforce: true

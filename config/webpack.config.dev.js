@@ -60,4 +60,6 @@ webpackConfig.devServer = {
   open: true
 }
 
+webpackConfig.mode = 'development'
+
 module.exports = webpackConfig

@@ -9,6 +9,7 @@ const helpers = require('./helpers')
 const DefinePlugin = require('webpack/lib/DefinePlugin')
 const env = require('../environment/prod.env')
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const extractStyle = new ExtractTextPlugin({
   filename: 'css/[name].css',
@@ -88,60 +89,55 @@ const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
   env
 }))
 
+webpackConfig.optimization = {
+  splitChunks: {
+    cacheGroups: {
+      common: {
+        chunks: 'initial',
+        name: 'common',
+        minChunks: pages.length,
+        maxInitialRequests: 5,
+        minSize: 0
+      },
+      vendor: { // 将第三方模块提取出来
+        test: /node_modules/,
+        chunks: 'initial',
+        name: 'vendor',
+        priority: 10, // 优先
+        enforce: true
+      }
+    }
+  }
+}
+
 webpackConfig.plugins = [
   ...webpackConfig.plugins,
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   extractStyle,
   ...htmlWebpackPlugins,
   new webpack.HashedModuleIdsPlugin(),
-  new webpack.optimize.UglifyJsPlugin({
-    beautify: false,
-    mangle: {
-      screw_ie8: false,
-      keep_fnames: true,
-      properties: false,
-      keep_quoted: true
-    },
-    compress: {
-      warnings: false,
-      screw_ie8: false,
-      properties: false
-    },
-    output: {
-      keep_quoted_props: true
-    },
-    comments: false
+  new UglifyJsPlugin({
+    uglifyOptions: {
+      mangle: {
+        keep_fnames: true,
+        properties: false
+      },
+      compress: {
+        warnings: false,
+        properties: false
+      },
+      output: {
+        keep_quoted_props: true
+      },
+      comments: false,
+      ie8: true
+    }
   }),
   new DefinePlugin({
     'process.env': env
   }),
   // keep module.id stable when vender modules does not change
   new webpack.HashedModuleIdsPlugin(),
-  // split common js into its own file
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'common',
-    minChunks: (module, count) => {
-      return count >= 2
-    }
-  }),
-  // split vendor js into its own file
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: (module, count) => {
-      // This prevents stylesheet resources with the .css or .scss extension
-      // from being moved from their original chunk to the vendor chunk
-      if (module.resource && (/^.*\.(css|scss)$/).test(module.resource)) {
-        return false
-      }
-      return module.context && module.context.includes('node_modules')
-    }
-  }),
-  // extract webpack runtime and module manifest to its own file in order to
-  // prevent vendor hash from being updated whenever app bundle is updated
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    minChunks: Infinity
-  }),
   // copy custom static assets
   new CopyWebpackPlugin([{
     from: path.resolve(__dirname, '../static'),
@@ -151,5 +147,7 @@ webpackConfig.plugins = [
   // beautify html
   new HtmlBeautifyPlugin()
 ]
+
+webpackConfig.mode = 'production'
 
 module.exports = webpackConfig

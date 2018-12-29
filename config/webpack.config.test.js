@@ -90,6 +90,7 @@ const htmlWebpackPlugins = pages.map(page => new HtmlWebpackPlugin({
 }))
 
 webpackConfig.optimization = {
+  minimize: false,
   splitChunks: {
     cacheGroups: {
       common: {
@@ -101,7 +102,7 @@ webpackConfig.optimization = {
       },
       vendor: { // 将第三方模块提取出来
         test: /node_modules/,
-        chunks: 'all',
+        chunks: chunk => chunk.name !== 'ie8-polyfill',
         name: 'vendor',
         priority: 10, // 优先
         enforce: true
